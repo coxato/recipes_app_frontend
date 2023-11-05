@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 // custom components
 import HomeInput from '../components/Input/homeInput';
+import RecipeItem from '../components/RecipeItem';
+// style
 import './styles/home.css';
+// mock data
+import recipesListMock from '../mocks/recipesListMock';
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('');
@@ -18,6 +22,7 @@ const Home = () => {
     // need to implement theme mode (provider ready)
     const isDark = false;
 
+    console.log(recipesListMock);
     return (
         <div className="home-wrapper">
             <div className="home-top" style={{ backgroundColor: isDark ? '#49416D' : '#A882DD' }}>
@@ -33,6 +38,14 @@ const Home = () => {
                     handleChange={handleInputChange} 
                     ingredients={ingredients}
                 />
+                
+                <div className="recipes-list-wrapper">
+                    {
+                        recipesListMock.map( r => (
+                            <RecipeItem key={r.id} {...r} />
+                        ))
+                    }
+                </div>
             </div>
         </div>
     );

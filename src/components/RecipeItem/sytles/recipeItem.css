@@ -1,0 +1,20 @@
+.r-card-inner{
+    display: flex;
+    align-items: center;
+}
+
+.r-card-inner img{
+    border-radius: 7px;
+}
+.r-item-right{
+    margin-left: 15px;
+}
+
+.r-item-right h2{
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+.r-card-wrapper{
+    margin-bottom: 15px;
+}
