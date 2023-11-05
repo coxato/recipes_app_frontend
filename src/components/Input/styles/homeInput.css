@@ -1,0 +1,14 @@
+.home-input-wrapper{
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 17px;
+}
+
+.home-input{
+    border-radius: 5px;
+    width: 400px;
+    padding: 12px;
+}

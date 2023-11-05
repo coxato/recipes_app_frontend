@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useEffect, useState, useReducer } from 'react';
-
-
 const AuthContext = createContext();
 
 // action reducer types
@@ -20,7 +18,8 @@ function authReducer(state, action) {
 
         case LOGOUT: {
             return {
-                logged: false
+                logged: false,
+                userInfo: null
             }
         }
     
@@ -32,7 +31,7 @@ function authReducer(state, action) {
 
 const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const [state, dispath] = useReducer(authReducer, { logged: false });
+    const [state, dispath] = useReducer(authReducer, { logged: false, userInfo: null });
 
     useEffect(() => {
         const logged = localStorage.getItem('logged');
@@ -68,6 +67,8 @@ function useAuth() {
             type: SET_LOGGED,
             payload: { logged }
         });
+        localStorage.setItem("logged", logged ? "true" : "false");
+        localStorage.setItem("userInfo", logged ? JSON.stringify(logged) : "");
     }
 
     function setLogout() {
@@ -75,16 +76,14 @@ function useAuth() {
             type: LOGOUT,
             payload: { logged: false }
         });
-    }
-
-    function getLogged() {
-        return state.logged;
+        localStorage.setItem("logged", "false");
+        localStorage.setItem("userInfo", "");
     }
 
     return {
         setLogged,
         setLogout,
-        getLogged
+        logged: state.logged
     }
 }
 

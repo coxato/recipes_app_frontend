@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Form, Alert } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "antd";
+// hooks
+import { useAuth } from "../context/authContext";
 // request
 import authRequests from "../requests/auth";
-
+// layouts
 import AuthLayout from '../layouts/authLayout';
+// style
+import './styles/loginregister.css';
 
 
 const Login = () => {
     const [inputValues, setInputValues] = useState({ email: '', password: '' });
-    const [loading, setLoading] = useState(false);
-
+    const [loadingState, setLoadingState] = useState({ loading: false, error: null });
+    const navigate = useNavigate();
+    const { setLogged } = useAuth();
 
     const handleChange = ev => {
-        const [name, value] = ev.target;
+        const {name, value} = ev.target;
         setInputValues({
             ...inputValues,
             [name]: value
@@ -22,55 +28,82 @@ const Login = () => {
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
-        setLoading(true);
-
+        setLoadingState({ loading: true, error: null });
+        
         const { email, password } = inputValues;
         const logged = await authRequests.login({
             email, password
         });
 
-        localStorage.setItem("logged", logged ? "true" : "false");
-        setLoading(false);
+        setLogged(logged);
+        
+        if(logged){
+            navigate("/");
+            return;
+        }
+
+        setLoadingState({ loading: false, error: !logged });
+        setInputValues({ email: '', password: '' });
     }
+
+    useEffect(() => {
+        const logged = localStorage.getItem("logged");
+        if(logged === "true"){
+            navigate('/');
+        };
+    }, []);
 
     return (
         <AuthLayout>
-            <h1 className="text-center centered">Login</h1>
+            <div className="auth-form-wrapper box-shaddow-light">
+                <h1 className="text-center r-centered">Login</h1>
+                {
+                    loadingState.error && (
+                        <Alert variant="danger">Invalid email or password</Alert>
+                    )
+                }
 
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        size="lg"
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        value={inputValues.email}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
+                <Form>
+                    <div className="form-group-flex">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            size="lg"
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={inputValues.email}
+                            onChange={handleChange}
+                            autoComplete="off"
+                        />
+                    </div>
 
-                <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        size="lg"
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        value={inputValues.password}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
+                    <div className="form-group-flex">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            size="lg"
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            value={inputValues.password}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div className="text-center mt-3">
-                    <Button
-                        type="submit"
-                        loading={loading}
-                    >
-                        Sign in
-                    </Button>
-                </div>
-            </Form>
+                    <div className="r-centered">
+                        <Button
+                            type="primary"
+                            loading={loadingState.loading}
+                            onClick={handleSubmit}
+                            className="my-3"
+                        >
+                            Sign in
+                        </Button>
+                    </div>
+
+                    <Link to="/register">Don't have an account yet?, Register</Link>
+
+                </Form>
+            </div>
         </AuthLayout>
     )
 }

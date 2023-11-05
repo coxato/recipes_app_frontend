@@ -3,7 +3,7 @@ import './styles/appLayoutStyle.css';
 
 const AppLayout = ({children}) => {
     return (
-        <div className="appLayout">
+        <div className="app-wrapper">
             <Navbar/>
             {children}
         </div>

@@ -1,0 +1,19 @@
+.app-wrapper{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.auth-wrapper-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-center{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}

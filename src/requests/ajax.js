@@ -1,6 +1,4 @@
 import axios from 'axios';
-
-
 const request = {};
 
 const manageResponse = responseDataObj => {

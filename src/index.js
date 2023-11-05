@@ -1,19 +1,19 @@
 import React from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 // context providers
 import { AuthProvider } from "./context/authContext";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
 import App from "./App";
 
-render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+const root = createRoot(document.getElementById("root"));
+root.render(<React.StrictMode>
+  <BrowserRouter>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </BrowserRouter>
+</React.StrictMode>);
+

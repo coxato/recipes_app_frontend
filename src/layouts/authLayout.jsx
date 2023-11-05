@@ -1,14 +1,15 @@
 import React from "react";
-
 import { Col, Container, Row } from "react-bootstrap";
+// style
+import './styles/appLayoutStyle.css';
 
-const Auth = ({ children }) => (
+const AuthLayout = ({ children }) => (
   <React.Fragment>
-    <div className="d-flex w-100 justify-content-center">
+    <div className="full-center">
       <Container className="d-flex flex-column">
         <Row className="h-100">
           <Col sm="10" md="8" lg="6" className="mx-auto d-table h-100">
-            <div className="d-table-cell align-middle">
+            <div className="auth-wrapper-container">
               {children}
             </div>
           </Col>
@@ -18,4 +19,4 @@ const Auth = ({ children }) => (
   </React.Fragment>
 );
 
-export default Auth;
+export default AuthLayout;

@@ -5,9 +5,9 @@ import { API_BASE_URL } from '../config';
 
 const authRequests = {};
 
-authRequests.login = async function (email, password) {
-    const url = `${API_BASE_URL}/users/login`;
+authRequests.login = async function ({ email, password }) {
 
+    const url = `${API_BASE_URL}/users/login`;
     const sessionData = await ajax.post(url, {
         email, password
     });

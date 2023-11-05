@@ -1,0 +1,34 @@
+.home-wrapper{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.home-top{
+    position: relative;
+    width: 100%;
+    height: 300px;
+    z-index: 1;
+}
+
+.home-top-titles{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: -25px;
+}
+
+.home-bottom{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    border-radius: 40px 40px 0 0;
+    margin-top: -40px;
+    z-index: 2;
+    background-color: #FFF0E9;
+}
